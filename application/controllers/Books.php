@@ -14,6 +14,7 @@ class Books extends CI_Controller {
 	public function index()
 	{
 		$data['books'] = $this->Book_model->get_all_books();
+		$data['categorias'] = $this->Book_model->get_all_categories();
 		$this->load->view('book_view', $data);	
 	}
 
@@ -23,10 +24,10 @@ class Books extends CI_Controller {
 	public function book_add()
 	{
 		$data = array(
-			'book_isbn'     => $this->input->post('book_isbn'),
-			'book_title'    => $this->input->post('book_title'),
-			'book_author'   => $this->input->post('book_author'),
-			'book_category' => $this->input->post('book_category')
+			'book_isbn'   => $this->input->post('book_isbn'),
+			'book_title'  => $this->input->post('book_title'),
+			'book_author' => $this->input->post('book_author'),
+			'category_id' => $this->input->post('book_category')
 		);
 		$insert = $this->Book_model->book_add($data);
 		echo json_encode( array( "status" => TRUE ) );
@@ -50,7 +51,7 @@ class Books extends CI_Controller {
 			'book_isbn'     => $this->input->post('book_isbn'),
 			'book_title'    => $this->input->post('book_title'),
 			'book_author'   => $this->input->post('book_author'),
-			'book_category' => $this->input->post('book_category')
+			'category_id' => $this->input->post('book_category')
 		);
 		$this->Book_model->book_update( array( 'book_id' => $this->input->post('book_id') ), $data );
 		echo json_encode( array( "status" => TRUE) );

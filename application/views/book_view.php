@@ -47,7 +47,7 @@
 	        <td><?php echo $book->book_isbn;?></td>
 			<td><?php echo $book->book_title;?></td>
 			<td><?php echo $book->book_author;?></td>
-			<td><?php echo $book->book_category;?></td>
+			<td><?php echo $book->name_category;?></td>
 			<td>
 				<button class="btn btn-warning" onclick="edit_book(<?= $book->book_id;?>)"><i class="glyphicon glyphicon-pencil"></i></button>
 				<button class="btn btn-danger" onclick="delete_book(<?= $book->book_id;?>)"><i class="glyphicon glyphicon-remove"></i></button>
@@ -68,6 +68,7 @@
     </table>
 
   </div>
+  
   <!--
   <script src="<?php echo base_url('assests/<a href="http://www.phpcodify.com/category/jquery/">jquery</a>/jquery-3.1.0.min.js')?>"></script>
   <script src="<?php echo base_url('assests/bootstrap/js/bootstrap.min.js')?>"></script>
@@ -143,16 +144,14 @@
         dataType: "JSON",
         success: function(data)
         {
-
             $('[name="book_id"]').val(data.book_id);
             $('[name="book_isbn"]').val(data.book_isbn);
             $('[name="book_title"]').val(data.book_title);
             $('[name="book_author"]').val(data.book_author);
-            $('[name="book_category"]').val(data.book_category);
+            $('[name="book_category"]').val(data.category_id);
 
-
-            $('.modal-title').text('Editar Libro'); // Set title to Bootstrap modal title
-            $('#formulario_modal_libros').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Editar Libro'); // cambia el titulo del modal
+            $('#formulario_modal_libros').modal('show'); // muestra el modal completamente cargado
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -162,19 +161,15 @@
     });
     }
 
-
-
     function save()
     {
       var url;
       if(accion == 'agregar')
       {
-          //url = "<?php echo site_url('books/book_add')?>";
           url = controlador + '/book_add';
       }
       else
       {
-        //url = "<?php echo site_url('books/book_update')?>";
         url = controlador + '/book_update';
       }
 
@@ -260,9 +255,13 @@
                             </div>
 
                             <div class="form-group">
-                            	<label class="control-label col-md-3">Categoria Libro</label>
+                            	<label class="control-label col-md-3">Categoria</label>
                             	<div class="col-md-9">
-                            		<input name="book_category" placeholder="Categoria" class="form-control" type="text">
+                                <select name="book_category" class="form-control">
+                                  <?php foreach ($categorias as $categoria): ?>
+                                    <option value="<?php echo $categoria['category_id']; ?>"><?php echo $categoria['name_category']; ?></option>
+                                  <?php endforeach ?>
+                                </select>
                             	</div>
                             </div>
                         </div>
