@@ -68,7 +68,6 @@
     </table>
 
   </div>
-  
   <!--
   <script src="<?php echo base_url('assests/<a href="http://www.phpcodify.com/category/jquery/">jquery</a>/jquery-3.1.0.min.js')?>"></script>
   <script src="<?php echo base_url('assests/bootstrap/js/bootstrap.min.js')?>"></script>
